@@ -1,0 +1,36 @@
+!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>나의 소개</title>
+    <style>
+        body{background-color : beige;
+            color: darkblue;
+        margin-left:50px;margin-right:50px}
+        h3{ text-align: center;
+            color: darkolivegreen;}
+        hr{ height : 5px; border:solid grey;
+        background-color: grey}
+        span{color: hotpink; font-size: 20px;}
+        #imageContainer {
+            display: none;
+        }
+        </style>
+    <script>
+        function show() {
+            document.getElementById("imageContainer").style.display = "block"; // 이미지 보이기
+        }
+        function hide() {
+            document.getElementById("imageContainer").style.display = "none"; // 이미지 숨기기
+        }
+    </script>
+</head>
+<body>
+<h3 onmouseover="show()" onmouseout="hide()">이은지</h3>
+<hr>
+<div id="imageContainer">
+    <img src="https://velog.velcdn.com/images/yeolyi1310/post/9dc31c1b-b5f4-4251-826f-a48228b0c0e6/image.png" width="100"></div>
+    저는 대한민국 경기도에서 태어나 부산으로 초등학교 3학년 때 이사온 <span>이은지</span>입니다.<br>
+제가 제일 좋아하는 것은 <span>노래듣는 것</span>이고, 지금 듣고 있는 노래는 <span>행복한 나를</span>입니다.
+</body>
+</html>
