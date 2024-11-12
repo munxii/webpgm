@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw Name with Canvas</title>
+    <style>
+        /* 화면 중앙에 캔버스를 위치시키기 위한 스타일 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid black;
+            width: 400px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="200"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "black";
+
+        // "이" 글자 그리기
+        ctx.beginPath();
+        ctx.arc(50, 100, 30, 0, Math.PI * 2); // 동그라미 수정
+        ctx.stroke();
+
+        ctx.moveTo(100, 50); // 세로선
+        ctx.lineTo(100, 150);
+        ctx.stroke();
+
+        //"은" 글자 그리기
+        ctx.beginPath();
+        ctx.arc(200, 70, 30, 0, Math.PI * 2); // 동그라미 수정
+        ctx.stroke();
+
+        ctx.moveTo(150, 120); // 가로선 첫 획
+        ctx.lineTo(250, 120);
+        ctx.stroke();
+
+        ctx.moveTo(170, 150); // 세로선 첫 획
+        ctx.lineTo(170, 170);
+        ctx.stroke();
+
+        ctx.moveTo(170, 170); // 가로선 첫 획
+        ctx.lineTo(250, 170);
+        ctx.stroke();
+
+        
+        
+
+        // "지" 글자 그리기
+        ctx.beginPath();
+        ctx.moveTo(300, 68); // 세로선 첫 획
+        ctx.lineTo(350, 68);
+        ctx.moveTo(300, 120); // 가로선 첫 획
+        ctx.lineTo(325, 70);
+        ctx.lineTo(350, 120);
+
+        ctx.moveTo(370, 50); // 세로선 두 번째 획
+        ctx.lineTo(370, 150);
+        ctx.stroke();
+    </script>
+</body>
+</html>
