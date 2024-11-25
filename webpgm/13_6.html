@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학점 매기기</title>
+</head>
+<body>
+    <h1>학점 매기기</h1>
+    <button id="openInputButton">점수 입력</button>
+    <p id="result"></p>
+
+    <script>
+        const workerBlob = new Blob([`
+            onmessage = function(event) {
+                const score = event.data;
+                let grade;
+
+                if (score >= 90) {
+                    grade = 'A';
+                } else if (score >= 80) {
+                    grade = 'B';
+                } else if (score >= 70) {
+                    grade = 'C';
+                } else if (score >= 60) {
+                    grade = 'D';
+                } else {
+                    grade = 'F';
+                }
+
+                postMessage({ score, grade });
+            };
+        `], { type: 'application/javascript' });
+
+        const worker = new Worker(URL.createObjectURL(workerBlob));
+        const openInputButton = document.getElementById('openInputButton');
+        const result = document.getElementById('result');
+
+        openInputButton.addEventListener('click', () => {
+            const score = prompt("점수를 숫자로 입력하세요");
+
+            if (score === null || score.trim() === "") {
+                result.textContent = "입력이 취소되었습니다.";
+                return;
+            }
+
+            const numericScore = parseInt(score, 10);
+
+            if (isNaN(numericScore) || numericScore < 0 || numericScore > 100) {
+                result.textContent = "0에서 100 사이의 숫자를 입력하세요.";
+                return;
+            }
+
+            worker.postMessage(numericScore);
+        });
+
+        worker.onmessage = (event) => {
+            const { score, grade } = event.data;
+            result.textContent = `${score} = ${grade}`;
+        };
+    </script>
+</body>
+</html>
