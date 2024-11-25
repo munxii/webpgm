@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오디오 다시 재생</title>
+</head>
+<body>
+    <h1>애국가 연주</h1>
+
+    <audio id="audioPlayer" controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        브라우저가 오디오 요소를 지원하지 않습니다.
+    </audio>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        audioPlayer.addEventListener('ended', () => {
+            const replay = confirm('다시 할까요?');
+            if (replay) {
+                audioPlayer.currentTime = 0;
+                audioPlayer.play();
+            }
+        });
+    </script>
+</body>
+</html>
