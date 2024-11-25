@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>곱셈하기</title>
+</head>
+<body>
+    <h1>곱셈하기</h1>
+    <hr>
+    <form id="multiplicationForm" onsubmit="return false;">
+        <input type="number" id="number1" placeholder="첫 번째 숫자" required>
+        <input type="number" id="number2" placeholder="두 번째 숫자" required>
+        <input type="button" id="multiplyButton" value="곱하기">
+        <input type="text" id="result" placeholder="결과" readonly>
+    </form>
+
+    <script>
+        const workerBlob = new Blob([`
+            onmessage = function(event) {
+                const { num1, num2 } = event.data;
+                const result = num1 * num2;
+                postMessage(result);
+            };
+        `], { type: 'application/javascript' });
+
+        const worker = new Worker(URL.createObjectURL(workerBlob));
+
+        const multiplyButton = document.getElementById('multiplyButton');
+        const number1Input = document.getElementById('number1');
+        const number2Input = document.getElementById('number2');
+        const resultInput = document.getElementById('result');
+
+        multiplyButton.addEventListener('click', () => {
+            const num1 = parseFloat(number1Input.value);
+            const num2 = parseFloat(number2Input.value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                resultInput.value = "숫자를 입력하세요!";
+                return;
+            }
+
+            worker.postMessage({ num1, num2 });
+        });
+
+        worker.onmessage = (event) => {
+            resultInput.value = event.data;
+        };
+    </script>
+</body>
+</html>
