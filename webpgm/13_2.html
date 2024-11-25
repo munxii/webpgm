@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비디오 재생</title>
+</head>
+<body>
+    <h1>비디오 제어 테스트</h1>
+
+    <video id="videoPlayer" width="640" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        브라우저가 비디오를 지원하지 않습니다.
+    </video>
+    <p id="status">현재: https://www.w3schools.com/html/mov_bbb.mp4를 재생 중입니다.</p>
+
+    <button id="playButton">play</button>
+    <button id="pauseButton">pause</button>
+    <button id="replayButton">replay</button>
+    <button id="volDownButton">vol-</button>
+    <button id="volUpButton">vol+</button>
+    <button id="muteButton">mute on/off</button>
+
+    <script>
+        const videoPlayer = document.getElementById('videoPlayer');
+        const playButton = document.getElementById('playButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const replayButton = document.getElementById('replayButton');
+        const volUpButton = document.getElementById('volUpButton');
+        const volDownButton = document.getElementById('volDownButton');
+        const muteButton = document.getElementById('muteButton');
+
+        playButton.addEventListener('click', () => videoPlayer.play());
+        pauseButton.addEventListener('click', () => videoPlayer.pause());
+        replayButton.addEventListener('click', () => {
+            videoPlayer.currentTime = 0;
+            videoPlayer.play();
+        });
+        volDownButton.addEventListener('click', () => {
+            if (videoPlayer.volume > 0) videoPlayer.volume = Math.max(videoPlayer.volume - 0.1, 0);
+        });
+        volUpButton.addEventListener('click', () => {
+            if (videoPlayer.volume < 1) videoPlayer.volume = Math.min(videoPlayer.volume + 0.1, 1);
+        });
+      
+        muteButton.addEventListener('click', () => videoPlayer.muted = !videoPlayer.muted);
+    </script>
+</body>
+</html>
