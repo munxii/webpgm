@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오디오 리스트 재생</title>
+</head>
+<body>
+    <h1>오디오 리스트 연속 재생</h1>
+
+   
+    <select id="audioSelect">
+        
+    </select>
+    <br><br>
+
+    <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/mpeg">
+        브라우저가 오디오를 지원하지 않습니다.
+    </audio>
+    <br>
+
+    <button id="playButton">재생</button>
+    <button id="pauseButton">일시정지</button>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSelect = document.getElementById('audioSelect');
+        const playButton = document.getElementById('playButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const audioSource = document.getElementById('audioSource');
+
+       
+        const audioFiles = [
+            { title: "EmbraceableYou", file: "EmbraceableYou.mp3" },
+            { title: "MoonGlow", file: "MoonGlow.mp3" },
+            { title: "Aegukga", file: "Aegukga.mp3" }
+        ];
+
+    
+        audioFiles.forEach(audio => {
+            const option = document.createElement('option');
+            option.value = `다운로드/${audio.file}`; 
+            option.textContent = audio.title;
+            audioSelect.appendChild(option);
+        });
+
+        audioSelect.addEventListener('change', () => {
+            const selectedAudio = audioSelect.value;
+            audioSource.src = selectedAudio; 
+            audioPlayer.load(); 
+        });
+
+        
+        playButton.addEventListener('click', () => {
+            audioPlayer.play();
+        });
+
+
+        pauseButton.addEventListener('click', () => {
+            audioPlayer.pause();
+        });
+
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            if (audioFiles.length > 0) {
+                audioSource.src = `다운로드/${audioFiles[0].file}`; 
+                audioPlayer.load();
+            }
+        });
+    </script>
+</body>
+</html>
