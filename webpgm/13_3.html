@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오디오 재생</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .track {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .track span {
+            margin-right: 10px;
+        }
+        .track .index {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .track.playing span {
+            color: red;
+            font-weight: bold;
+        }
+        button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>오디오 재생</h1>
+
+    <audio id="audioPlayer" controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        브라우저가 오디오 요소를 지원하지 않습니다.
+    </audio>
+
+    <div id="trackList">
+        <div class="track" id="track1">
+            <span class="index">1</span>
+            <span>애국가</span>
+            <button onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'track1')">재생</button>
+            <button onclick="stopTrack()">중지</button>
+        </div>
+        <div class="track" id="track2">
+            <span class="index">2</span>
+            <span>Moon Glow</span>
+            <button onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'track2')">재생</button>
+            <button onclick="stopTrack()">중지</button>
+        </div>
+        <div class="track" id="track3">
+            <span class="index">3</span>
+            <span>Embraceable You</span>
+            <button onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 'track3')">재생</button>
+            <button onclick="stopTrack()">중지</button>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        let currentPlayingTrack = null;
+
+        function playTrack(src, trackId) {
+            if (audioPlayer.src !== src) {
+                audioPlayer.src = src;
+                audioPlayer.play();
+            } else if (audioPlayer.paused) {
+                audioPlayer.play();
+            }
+
+            if (currentPlayingTrack) {
+                document.getElementById(currentPlayingTrack).classList.remove('playing');
+            }
+
+            currentPlayingTrack = trackId;
+            document.getElementById(trackId).classList.add('playing');
+        }
+
+        function stopTrack() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+
+            if (currentPlayingTrack) {
+                document.getElementById(currentPlayingTrack).classList.remove('playing');
+                currentPlayingTrack = null;
+            }
+        }
+    </script>
+</body>
+</html>
