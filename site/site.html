@@ -1,0 +1,297 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Company Introduction</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ03R8lYO4oF6cDeQfFMu6tDgjKPCv60fAqVXJcZQ6LgFcxPppS6pOcxKp0v" crossorigin="anonymous">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ff69b4;
+      }
+    nav {
+      background-color: black;
+      padding: 1rem;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+    }
+    nav ul li a:hover {
+      background-color: #ff6f91;
+      border-radius: 5px;
+    }
+    .sub-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+    }
+    .sub-menu li {
+      display: block;
+    }
+    .sub-menu li a {
+      color: black;
+      padding: 0.5rem;
+      display: block;
+      text-decoration: none;
+    }
+    .sub-menu li a:hover {
+      background-color: #eee;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .container img {
+  max-width: 100%; /* 이미지가 컨테이너를 넘어가지 않도록 제한 */
+  height: auto;    /* 비율 유지 */
+  display: block;  /* 불필요한 공백 제거 */
+  margin: 0 auto;  /* 이미지 가운데 정렬 */
+  border-radius: 8px; /* 둥근 모서리 추가 (선택 사항) */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 (선택 사항) */
+}
+    .content {
+      display: none;
+    }
+    .content.active {
+      display: block;
+    }
+    .benefit-item {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.benefit-item h3 {
+  color: #333;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.benefit-item p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.benefit-item img {
+  width: 300px; /* 너비를 300px로 고정 */
+  height: 200px; /* 높이를 200px로 고정 */
+  object-fit: cover; /* 이미지가 잘리지 않도록 비율을 맞추면서 크기 맞추기 */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+  </style>
+  <!-- Chart.js 라이브러리 추가 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+
+    // 메뉴 클릭 시 활성화될 콘텐츠 설정
+    document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll("nav a[data-target]");
+  const contents = document.querySelectorAll(".content");
+
+  links.forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault(); // 페이지 이동 방지
+
+      const targetId = link.getAttribute("data-target");
+
+      // 모든 콘텐츠 숨기기
+      contents.forEach(content => content.classList.remove("active"));
+
+      // 선택한 콘텐츠만 보이게 하기
+      const targetContent = document.getElementById(targetId);
+      if (targetContent) {
+        targetContent.classList.add("active");
+      }
+    });
+  });
+
+  // 구글 연봉 차트 생성
+  const salaryCanvas = document.getElementById("salaryChart");
+  if (salaryCanvas) {
+    const ctx = salaryCanvas.getContext("2d");
+    new Chart(ctx, {
+      type: "bar", // 차트 유형
+      data: {
+        labels: ["소프트웨어 엔지니어", "스태프 소프트웨어 엔지니어", "프로젝트 매니저", "제품 마케팅 매니저", "인턴"], // 직위
+        datasets: [
+          {
+            label: "연간 평균 연봉 ($)",
+            data: [140000, 438500, 171500, 246000, 88000], // 직위별 연봉 (단위: 달러)
+            backgroundColor: "#ff6f91", // 막대 색상
+            borderColor: "#ff2a68", // 막대 테두리 색상
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "연봉 (USD)",
+            },
+          },
+        },
+      },
+    });
+  };
+});
+  </script>
+  
+</head>
+<body>
+  <!-- Navigation Menu -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul>
+          <li><a href="#" data-target="default"><i class="fas fa-home"></i> 홈</a></li>
+          <li><a href="#" data-target="history"><i class="fas fa-history"></i> 역사</a></li>
+          <li><a href="#" data-target="benefits"><i class="fas fa-gift"></i> 회사 복지</a></li>
+          <li><a href="#" data-target="korea"><i class="fas fa-map-marker-alt"></i> 한국 지점 소개</a></li>
+          <li><a href="#" data-target="salary"><i class="fas fa-dollar-sign"></i> 연봉</a></li>
+          <li><a href="#" data-target="link"><i class="fas fa-link"></i> 사이트 바로가기</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+  <!-- Content Container -->
+  <div class="container">
+    <!-- Default Content -->
+    <div id="default" class="content active">
+      <h2>The Company I Want To Join </h2>
+      <img src="https://velog.velcdn.com/images/eun_xii/post/d75ce1a1-0bdb-4e73-8b3e-1c5783b35c23/image.jpeg" alt="Google Image Placeholder">
+    </div>
+  
+    <!-- Google History -->
+    <div id="history" class="content">
+      <h2>구글 회사의 역사</h2>
+      <p>구글은 1996년 1월, 스탠퍼드 대학 박사 과정 학생이던 래리 페이지가 연구 프로젝트로 시작했으며, 곧 세르게이 브린이 합류했습니다.<br> 두 사람은 웹사이트 간의 관계를 분석해 더 나은 검색 결과를 제공하는 검색 엔진을 개발했습니다. <br>이 프로젝트의 초기 이름은 백럽(BackRub)으로, 웹사이트의 중요도를 백링크의 수로 평가했습니다. <br>1997년 9월 15일에 도메인 "google.com"을 등록했고, 1998년 9월 7일 캘리포니아 먼로 파크에서 "Google Inc."를 창립했습니다.
+
+        <br>"구글"이라는 이름은 10의 100승을 의미하는 "구골"의 오타에서 비롯되었습니다. <br>구글은 1999년 실리콘밸리 팰러앨토로 사무실을 옮긴 후, 같은 해 마운틴 뷰의 구글플렉스(Googleplex)로 확장했습니다. <br>구글플렉스는 원래 실리콘 그래픽스(SGI) 소유였으나, 2006년에 구글이 이를 3억 1900만 달러에 매입했습니다. <br>"구글하다"라는 동사는 인터넷 검색을 의미하며, 2006년 옥스퍼드 영어사전에 등재되었습니다. <br>구글의 연구와 초기 사업은 검색 엔진의 발전과 실리콘밸리에서의 성장의 기반이 되었습니다.</p>
+        <img src="https://velog.velcdn.com/images/eun_xii/post/6bf1ea6b-8580-4123-8bff-43ee2564d562/image.png" alt="구글 공동 창업자 세르게이 브린과 래리 페이지" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-top: 1rem;">
+      <p><strong>구글 공동 창업자 세르게이 브린과 래리 페이지</strong></p>
+      <div style="text-align: center; margin-top: 2rem;">
+        <p>출처: <a href="https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80%EC%9D%98_%EC%97%AD%EC%82%AC" target="_blank" style="color: #007bff; text-decoration: none;">https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80%EC%9D%98_%EC%97%AD%EC%82%AC</a></p>
+      </div>
+    </div>
+
+  
+<!-- Google Benefits -->
+<div id="benefits" class="content">
+  <h2>구글 회사 복지</h2>
+  <p>구글은 직원들에게 최고의 복지를 제공합니다. 건강 관리, 무제한 음식 제공, 교육 지원, 넓은 창의적 공간, 그리고 유연 근무제가 대표적입니다.</p>
+  
+  <!-- 복지 항목 및 이미지 추가 -->
+  <div class="benefit-item">
+    <h3>1. 건강 관리</h3>
+    <p>구글은 모든 직원에게 종합적인 건강 관리와 보험을 제공합니다. 또한, 사내 피트니스 센터와 다양한 웰빙 프로그램을 운영하여 직원들의 건강을 지원합니다.</p>
+    <img src="https://velog.velcdn.com/images/eun_xii/post/fd43ec11-108d-4d0e-b9d9-6b8e72207dcb/image.png" alt="Google Healthcare" />
+  </div>
+
+  <div class="benefit-item">
+    <h3>2. 무제한 음식 제공</h3>
+    <p>구글은 직원들에게 무료로 다양한 음식을 제공합니다. 사내 레스토랑에서는 신선한 재료로 준비된 건강식과 간식을 제공하여, 직원들이 언제든지 편하게 식사를 할 수 있습니다.</p>
+    <img src="https://velog.velcdn.com/images/eun_xii/post/43f1ffd4-264c-4755-acd3-0266b7678945/image.png" alt="Google Free Food" />
+  </div>
+
+  <div class="benefit-item">
+    <h3>3. 교육 지원</h3>
+    <p>구글은 직원들의 경력 개발을 지원하기 위해 다양한 교육 기회를 제공합니다. 이를 통해 직원들이 새로운 기술을 배우고 성장할 수 있도록 돕습니다.</p>
+    <img src="https://velog.velcdn.com/images/eun_xii/post/4bbc7c39-0063-480b-a486-a46d57b59f2a/image.png" alt="Google Education Support" />
+  </div>
+
+  <div class="benefit-item">
+    <h3>4. 창의적 공간</h3>
+    <p>구글의 사무실은 창의적인 업무 환경을 제공하며, 직원들이 혁신적인 아이디어를 자유롭게 공유할 수 있는 다양한 공간을 갖추고 있습니다.</p>
+    <img src="https://velog.velcdn.com/images/eun_xii/post/b0bd352b-3e3f-4492-ba48-70c5b4b449af/image.png" alt="Google Creative Space" />
+  </div>
+
+  <div class="benefit-item">
+    <h3>5. 유연 근무제</h3>
+    <p>구글은 직원들이 일과 생활을 잘 균형 잡을 수 있도록 유연한 근무 환경을 제공합니다. 원격 근무나 유연한 근무 시간제를 통해 개인의 생활 패턴에 맞는 근무를 지원합니다.</p>
+    <img src="https://velog.velcdn.com/images/eun_xii/post/bc9a85c7-4cb3-4b71-8e6d-02e293359ea2/image.png" alt="Google Flexible Working" />
+  </div>
+</div>
+  
+    <!-- Google Korea Location (with map) -->
+    <div id="korea" class="content">
+      <h2>구글 한국 지점 소개</h2>
+      <p>구글 코리아는 서울 강남구에 위치하며, 다양한 글로벌 프로젝트와 지역 서비스를 지원합니다. Google Maps와 Google Translate와 같은 로컬화 프로젝트를 진행합니다.</p>
+      <iframe 
+        src="https://map.naver.com/p/entry/place/13217562?c=13.00,0,0,0,dh" 
+        width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+      </iframe>
+    </div>
+    
+  
+    <!-- Google Salary -->
+    <div id="salary" class="content">
+      <h2>구글 연봉</h2>
+      <p>구글의 평균 연봉은 직위마다 상이합니다. 아래 차트에서 각 직위별 예상 연봉을 확인할 수 있습니다.</p>
+      <div class="chart-container">
+        <canvas id="salaryChart"></canvas> <!-- 그래프를 그릴 캔버스 -->
+      </div>
+      <p>출처: Glassdoor, PayScale</p>
+    </div>
+  
+    <!-- Google Link -->
+    <div id="link" class="content">
+      <h2>구글 사이트 바로가기</h2>
+      <img src="https://velog.velcdn.com/images/eun_xii/post/7ec93160-6dae-4ab9-b336-a8d1f7561e74/image.png" alt="구글 사이트" />
+      
+      <a href="https://www.google.com" target="_blank" class="btn btn-primary">Visit Google</a>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybFfCk5mnYh24cX+Xb0HptpzX7Jt0y3p9v6d9f3JACItw2E2B6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0s9Y5R5F6uZhd1ws5Vu13gxmvvD9A/We2Y6jlNK3zP+6XK2h" crossorigin="anonymous"></script>
+
+</body>
+</html>
